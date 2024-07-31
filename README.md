@@ -1,4 +1,4 @@
-# Notes on this Node.js and Sqlite
+# Notes on this Node.js and SQLite
 
 
 ## To query data in SQLite database from a Node.js application, you use these steps:
@@ -78,3 +78,47 @@ db.each(sql,params, (err, result) => {
 >
 >In case there is an error, the err parameter contains detailed information.
 
+***
+
+DATE: 2024-07-31
+
+TIME: 15:59:05
+
+***
+
+## Controlling the Execution Flow of Statements
+
+Learning how to control the execution flow of statements.
+
+>The `sqlite3` module provides you with **two methods** for **controlling** the *execution* flow of statements. 
+>>The `serialize()` method allows you to execute statements in serialized mode
+>>
+>>while the `parallelize()` method executes the statements in parallel.
+
+### Executing statement in serialized mode with Database.serialize
+
+>The `serialize()` method puts the *execution mode* into **serialized mode**.
+>>It means that only one statement can execute at a time. 
+>
+>Other statements will wait in a **queue** until all the previous statements are executed.
+
+It’s safe to nest the `serialize()` method as follows:
+
+```javascript
+
+db.serialize(() => {
+  // queries will execute in serialized mode
+  db.serialize(() => {
+    // queries will execute in serialized mode
+  });
+  // queries will execute in serialized mode
+});
+
+
+```
+
+Suppose, you want to execute the following three statements in sequence:
+
+    1. Create a new table.
+    2. Insert data into the table.
+    3. Query data from the table.
