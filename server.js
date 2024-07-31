@@ -9,6 +9,7 @@ let db = new sqlite.Database("./db/sample.db", (err) => {
   }
 });
 
+db.run("CREATE TABLE langs(name text)");
 
 db.close((err) => {
   if (err) {
