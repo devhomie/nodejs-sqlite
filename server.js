@@ -9,23 +9,13 @@ let db = new sqlite.Database(":memory:", (err) => {
   }
 });
 
-db.serialize(() => {
-  // Queries scheduled here will be serialized.
-  db.run("CREATE TABLE greetings(message text)")
-    .run(
-      `INSERT INTO greetings(message)
-          VALUES('Hi'),
-                ('Hello'),
-                ('Welcome')`
-    )
-    .each(`SELECT message FROM greetings`, (err, row) => {
-      if (err) {
-        throw err;
-      }
-      console.log(row.message);
-    });
+db.parallelize(() => {
+  dbSum(1, 1, db);
+  dbSum(2, 2, db);
+  dbSum(3, 3, db);
+  dbSum(4, 4, db);
+  dbSum(5, 5, db);
 });
-
 db.close((err) => {
   if (err) {
     console.error(err.message);
@@ -33,4 +23,15 @@ db.close((err) => {
   console.log('Close the database connection.');
 });
 
-// Notice that if you don’t place three statements in the serialize() method, all the three statements may execute in parallel which would cause an error.
+function dbSum(a, b, db) {
+  db.get("SELECT (? + ?) sum", [a, b], (err, row) => {
+    if (err) {
+      console.error(err.message);
+    }
+    console.log(`The sum of ${a} and ${b} is ${row.sum}`);
+  });
+}
+
+// As you see in the output, the order of execution is not the same as it was called in the program.
+
+// Notice that the statements execute in parallel, therefore, each time you run the program, the order of execution may be different.

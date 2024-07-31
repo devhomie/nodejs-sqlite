@@ -160,3 +160,24 @@ db.close((err) => {
 
 
 ```
+
+***
+
+### Executing statements in parallel with Database.parallelize
+
+>If you want the scheduled queries to execute in **parallel**, you place them in the `parallelize()` method.
+
+Similar to the serialize() method, it is safe to nest the parallelize() method as follows:
+
+```javascript
+
+db.parallelize(() => {
+  // queries will execute in parallel mode
+  db.parallelize(() => {
+    // queries will execute in parallel mode
+  });
+  // queries will execute in parallel mode
+});
+
+
+```
