@@ -190,7 +190,7 @@ TIME: 16:50:23
 
 ## Inserting Data Into an SQLite Table from a Node.js Application
 
-Learning how to insert one or more row into an SQLite table from a Node.js application.
+### Learning how to insert one or more row into an SQLite table from a Node.js application.
 
 
 To insert data into an SQLite table from a Node.js application, you follow these steps:
@@ -199,7 +199,8 @@ To insert data into an SQLite table from a Node.js application, you follow these
     2. Execute an INSERT statement.
     3. Close the database connection.
 
-To execute an `INSERT` statement, you use the `run()` method of the Database object:
+To execute an **SQL** `INSERT` statement, you use the `run()` method of the Database object:
+- Typically the **SQL** statement is wrapped in a variable  , in this case `sql`, and passed as the first argument
 
 ```javascript
 
@@ -209,6 +210,25 @@ db.run(sql, params, function(err){
 
 ```
 
->The `run()` method executes an `INSERT` statement with **specified parameters** and calls a **callback** afterwards.
+>The `run()` method executes an **SQL** `INSERT` statement with **specified parameters** and calls a **callback** afterwards.
 >
 >If an error occurred, you can **find the detailed information** in the `err` argument of the **callback** function.
+
+***
+
+### Insert multiple rows into a table at a time
+
+To insert multiple rows at a time into a table, you use the following form of the INSERT statement:
+
+```SQL
+INSERT INTO table_name(column_name)
+VALUES(value_1), (value_2), (value_3),...
+```
+
+To simulate this in the Node.js application, we first need to construct the INSERT statement with multiple placeholders:
+
+```SQL
+INSERT INTO table_name(column_name)
+VALUES(?), (?), (?),...
+
+```
