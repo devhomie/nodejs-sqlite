@@ -1,4 +1,4 @@
-# Notes on this Node.js and SQLite
+# Notes on Node.js and SQLite
 
 
 ## To query data in SQLite database from a Node.js application, you use these steps:
@@ -181,3 +181,21 @@ db.parallelize(() => {
 
 
 ```
+
+***
+DATE: 2024-07-31
+
+TIME: 16:50:23
+***
+
+## Inserting Data Into an SQLite Table from a Node.js Application
+
+Learning how to insert one or more row into an SQLite table from a Node.js application.
+
+
+To insert data into an SQLite table from a Node.js application, you follow these steps:
+
+    1. Open a database connection.
+    2. Execute an INSERT statement.
+    3. Close the database connection.
+
