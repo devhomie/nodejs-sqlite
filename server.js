@@ -14,10 +14,10 @@ let db = new sqlite.Database(
   }
 );
 
-let sql = `SELECT DISTINCT Name name FROM playlists
+let sqlALL = `SELECT DISTINCT Name name FROM playlists
            ORDER BY name`;
 
-db.all(sql, [], (err, rows) => {
+db.all(sqlALL, [], (err, rows) => {
   if (err) {
     throw err;
   }
@@ -26,6 +26,22 @@ db.all(sql, [], (err, rows) => {
   });
 });
 
+let sqlGET = `SELECT PlaylistId id,
+                  Name name
+           FROM playlists
+           WHERE PlaylistId  = ?`;
+let playlistId = 1;
+ 
+// first row only
+db.get(sqlGET, [playlistId], (err, row) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  return row
+    ? console.log(row.id, row.name)
+    : console.log(`No playlist found with the id ${playlistId}`);
+
+});
 
 db.close((err) => {
   if (err) {

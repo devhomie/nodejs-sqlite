@@ -48,3 +48,12 @@ db.all(sql, [], (err, rows) => {
 // close the database connection
 db.close();
 ```
+
+***
+
+## Query the first row in the result set
+
+>When you know that the result set contains zero or one row 
+>>e.g., querying a row based on the **primary key** or querying with only one **aggregate function** such as **count, sum, max, min,** etc.
+>
+>you can use the `get()` method of Database object.
