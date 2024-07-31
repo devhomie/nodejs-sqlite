@@ -47,6 +47,22 @@ db.get(sqlGET, [playlistId], (err, row) => {
 });
 // *********** .get() METHOD EXAMPLE
 
+// *********** .get() METHOD EXAMPLE more parameters involved
+let sqlGetMORE = `SELECT FirstName firstName,
+                  LastName lastName,
+                  Email email
+                  FROM customers
+                  WHERE Country = ?
+                  ORDER BY FirstName`;
+
+db.each(sqlGetMORE, ["USA"], (err, row) => {
+  if (err) {
+    throw err;
+  }
+  console.log("\n",`${row.firstName} ${row.lastName} - ${row.email}`);
+});
+
+// *********** .get() METHOD EXAMPLE more parameters involved
 
 db.close((err) => {
   if (err) {

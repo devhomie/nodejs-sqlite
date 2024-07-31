@@ -57,3 +57,24 @@ db.close();
 >>e.g., querying a row based on the **primary key** or querying with only one **aggregate function** such as **count, sum, max, min,** etc.
 >
 >you can use the `get()` method of Database object.
+
+***
+
+## Query rows with each() method
+
+>The `each()` method executes an SQL query with specified **parameters** and **calls a callback** *for* **every row** in the **result set**.
+
+The following illustrates the each() method:
+
+```javascript
+
+db.each(sql,params, (err, result) => {
+   // process each row here
+});
+
+```
+
+>If the result set is empty, the callback is never called. 
+>
+>In case there is an error, the err parameter contains detailed information.
+
