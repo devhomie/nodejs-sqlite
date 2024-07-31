@@ -199,3 +199,16 @@ To insert data into an SQLite table from a Node.js application, you follow these
     2. Execute an INSERT statement.
     3. Close the database connection.
 
+To execute an `INSERT` statement, you use the `run()` method of the Database object:
+
+```javascript
+
+db.run(sql, params, function(err){
+  // 
+});
+
+```
+
+>The `run()` method executes an `INSERT` statement with **specified parameters** and calls a **callback** afterwards.
+>
+>If an error occurred, you can **find the detailed information** in the `err` argument of the **callback** function.
